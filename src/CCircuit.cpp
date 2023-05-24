@@ -5,7 +5,11 @@
 // Default Constructor
 CCircuit::CCircuit() : num_units(0), system_mineral_input(0.0), system_waste_input(0.0) {}
 
-// Constructor with number of units
+/**
+* @brief Constructor of the CCircuit class that initialises the vector of 
+*        CUnit units
+**/
+
 CCircuit::CCircuit(int num_units) {
     this->units.resize(num_units);
     for (int i = 0; i < num_units; i++) {
@@ -118,7 +122,12 @@ void CCircuit::FillIDs() {
 // New functions from Rubab
 
 bool validation[2] = { false, false };
-
+/**
+* @brief Function to check the validity of a circuit 
+* @params int * circuit_vector
+* Pointer to a circuit vector that contains information about the circuit
+* The function iterates through circuit to check its validity
+**/
 bool CCircuit::Check_Validity(int* circuit_vector)
 {
     validation[0] = false;
@@ -171,6 +180,12 @@ bool CCircuit::Check_Validity(int* circuit_vector)
 
     return true;
 }
+/**
+@brief Function to mark all units accessible from the feed
+@params int unit_num 
+Integer value representing the initial unit
+This function is recursively called to mark all units that can be accessed from the feed
+**/
 
 void CCircuit::mark_units(int unit_num) {
 
@@ -188,7 +203,7 @@ void CCircuit::mark_units(int unit_num) {
     else {
         validation[0] = true;
         return;
-        // ...Potentially do something to indicate that you have seen an exit
+        // Indicates that you have seen an exit
     }
     //If tails_num does not point at a circuit outlet recursively call the function
 
@@ -198,7 +213,7 @@ void CCircuit::mark_units(int unit_num) {
     else {
         validation[1] = true;
         return;
-        // ...Potentially do something to indicate that you have seen an exit
+        // Indicates that you have seen an exit
     }
     return;
 }
