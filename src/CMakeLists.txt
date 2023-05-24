@@ -10,7 +10,7 @@ set_target_properties( geneticAlgorithm
 
 # build the circuit simulator as a testable library
 
-add_library(circuitSimulator CCircuit.cpp CSimulator.cpp)
+add_library(circuitSimulator CCircuit.cpp CSimulator.cpp CUnit.cpp)
 set_target_properties( circuitSimulator
     PROPERTIES
     CXX_STANDARD 17
