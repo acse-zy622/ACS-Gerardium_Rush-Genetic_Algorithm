@@ -124,7 +124,18 @@ bool CCircuit::Check_Validity(int* circuit_vector)
     validation[0] = false;
     validation[1] = false;
     int feed_num = circuit_vector[0];
+    if (this->units.size() == 1)
+    {
+        if (circuit_vector[1] != circuit_vector[2] && circuit_vector[1] != circuit_vector[0] && circuit_vector[2] != circuit_vector[0])
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
+    }
     if (feed_num < 0 || feed_num >= this->units.size()) {
         return false;
     }
@@ -161,6 +172,9 @@ bool CCircuit::Check_Validity(int* circuit_vector)
             return false;
         }
         if (this->units[i].conc_num < 0 || this->units[i].tails_num < 0) {
+            return false;
+        }
+        if (validation[0] == false || validation[1] == false) {
             return false;
         }
         
