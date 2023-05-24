@@ -1,20 +1,29 @@
-/** Header for the Genetic Algorithm library
- *
-*/
+#ifndef GA_H
+#define GA_H
 
-#pragma once
+#include <vector>
 
-struct Algorithm_Parameters{
-    int max_iterations;
-    // other parameters for your algorithm       
+struct Algorithm_Parameters {
+    int population_size;
+    double mutation_rate;
+    double crossover_rate;
+    int generation_size;
+    int mutation_max_step;
+    int early_stopping_generations;
+    std::vector<double> mutation_type_rate;
+    std::vector<double> crossover_type_rate;
 };
 
-int optimize(int, int *,
-                double (&) (int, int*),
-                struct Algorithm_Parameters);
+struct Individual {
+    std::vector<int> vector;
+    double fitness_val;
+};
 
-// Other overloaded functions for optimize
+// Function types
+//double Evaluate_Circuit(int vector_size, int* circuit_vector);
+double Evaluate_circuit(int vector_size, int* circuit_vector);
 
-int optimize(int, int *, double (&) (int, int*));
+int optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters parameters);
 
-// Other functions and variables
+
+#endif // GA_H
