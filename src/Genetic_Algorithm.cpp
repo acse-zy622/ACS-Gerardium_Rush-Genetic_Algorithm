@@ -9,6 +9,8 @@
 #include <iostream>
 #include <chrono>
 #include <numeric>
+#include "omp.h"
+
 double Evaluate_circuit(int vector_size, int* circuit_vector)
 {
     double Performance = 0.0;
@@ -64,7 +66,8 @@ int optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters pa
         ////////////////////////start_time///////////////////////
         auto func_start = std::chrono::high_resolution_clock::now();
 
-
+        omp_set_num_threads(6);
+        #pragma omp parallel for
         for (int i = 0; i < parents.size(); i++) {
             parents[i].fitness_val = func(parents[i].vector.size(), parents[i].vector.data());
         }
@@ -81,7 +84,7 @@ int optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters pa
         std::sort(parents.begin(), parents.end(), [](const Individual& x, const Individual& y) {
             return x.fitness_val > y.fitness_val; });
         
-        std::cout << parents[0].fitness_val << std::endl;
+        //std::cout << parents[0].fitness_val << std::endl;
         // Check if the best fitness has improved
         if (parents[0].fitness_val > best_fitness) {
             best_fitness = parents[0].fitness_val;
