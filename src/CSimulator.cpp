@@ -27,10 +27,10 @@ double Evaluate_Circuit(int vector_size, int* circuit_vector, struct Circuit_Par
         CCircuit_vector.emplace_back(circuit_vector[n]);
     }
 
-    vector<double> flowrates_c;  // Define flow rate of concentrates of each unit
-    vector<double> new_flowrates_c;  // Define new flow rate of concentrates of each unit
-    vector<double> flowrates_t;  // Define flow rate of tailings of each unit
-    vector<double> new_flowrates_t;  // Define new flow rate of tailings of each unit
+    vector<double> flowrates_g;  // Define flow rate of gerardium of each unit
+    vector<double> new_flowrates_g;  // Define new flow rate of gerardium of each unit
+    vector<double> flowrates_w;  // Define flow rate of waste of each unit
+    vector<double> new_flowrates_w;  // Define new flow rate of waste of each unit
 
     CCircuit MyCCircuit((vector_size-1)/2, CCircuit_vector);  // Define the circuit
     MyCCircuit.FillIDs();  // Set IDs of each unit in this circuit
@@ -38,26 +38,26 @@ double Evaluate_Circuit(int vector_size, int* circuit_vector, struct Circuit_Par
     double Fgi = 10;  // Feed mineral
     double Fwi = 100;  // Feed waste
     MyCCircuit.InitialFlowrates(Fgi, Fwi);  // Initialize the flow rate of the circuit
-    MyCCircuit.ReturnFlowrates(flowrates_c, flowrates_t);  // Get initial flow rate of concentrates and tailings
+    MyCCircuit.ReturnFlowrates(flowrates_g, flowrates_g);  // Get initial flow rate of concentrates and tailings
 
     double max_diff = 0;  // Record maximum change of flow rate
     int cnt = 0;  // Count while loop
     while(max_diff>parameters.tolerance && cnt < parameters.max_iterations)
     {
         MyCCircuit.SolveCCircuit(); // Solve mass balance of the circuit
-        swap(flowrates_c, new_flowrates_c);  // Quick assign values from new_flowrates_c to flowrates_c
-        swap(flowrates_t, new_flowrates_t);  // Quick assign values from new_flowrates_t to flowrates_t
-        MyCCircuit.ReturnFlowrates(new_flowrates_c, new_flowrates_t);  // Get updated flow rate of concentrates and tailings
+        swap(flowrates_g, new_flowrates_g);  // Quick assign values from new_flowrates_c to flowrates_c
+        swap(flowrates_w, new_flowrates_w);  // Quick assign values from new_flowrates_t to flowrates_t
+        MyCCircuit.ReturnFlowrates(new_flowrates_g, new_flowrates_w);  // Get updated flow rate of concentrates and tailings
 
-        for(int n = 0; n < new_flowrates_c.size(); n++)  // Capture maximum change of flow rate
+        for(int n = 0; n < new_flowrates_g.size(); n++)  // Capture maximum change of flow rate
         {
-            if(abs(new_flowrates_c[n] - flowrates_c[n]) > max_diff)
+            if(abs(new_flowrates_g[n] - flowrates_g[n]) > max_diff)
             {
-                max_diff = abs(new_flowrates_c[n] - flowrates_c[n]);
+                max_diff = abs(new_flowrates_g[n] - flowrates_g[n]);
             }
-            if(abs(new_flowrates_t[n] - flowrates_t[n]) > max_diff)
+            if(abs(new_flowrates_w[n] - flowrates_w[n]) > max_diff)
             {
-                max_diff = abs(new_flowrates_t[n] - flowrates_t[n]);
+                max_diff = abs(new_flowrates_w[n] - flowrates_w[n]);
             }
         }
     }
