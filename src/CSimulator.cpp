@@ -73,9 +73,9 @@ double Evaluate_Circuit(int vector_size, int* circuit_vector){
 
 
 // Uncomment the following code to run a simple example
-int main()
-{
-    int vector[11] = {4, 5, 1, 2, 4, 0, 1, 1, 6, 1, 3};
-    cout << Evaluate_Circuit(11, vector) << endl;
-    return 0;
-}
+// int main()
+// {
+//     int vector[11] = {4, 5, 1, 2, 4, 0, 1, 1, 6, 1, 3};
+//     cout << Evaluate_Circuit(11, vector) << endl;
+//     return 0;
+// }
