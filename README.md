@@ -10,7 +10,6 @@ The developed software executes a genetic algorithm to optimise a speicification
 * [Documentation](#documentation)
 * [Testing](#testing)
 * [Authors](#authors)
-* [References](#references)
 * [License](#license)
 <!-- TOC -->
 
@@ -94,11 +93,6 @@ The tool includes functional tests that located in `/tests`. The tests are autom
 - Zhouran Yang
 
 With thanks to James Percival & Thomas Davidson for their support.
-
-### **References**
-
-
-
  
 ### **License**
-
+[MIT](https://choosealicense.com/licenses/mit/)
