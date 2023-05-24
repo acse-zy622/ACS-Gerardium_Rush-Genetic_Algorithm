@@ -1,0 +1,12 @@
+name: fluorite
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+ - numpy >= 1.13.0
+ - scipy
+ - jupyter  
+ - sympy
+ - pandas
+ - matplotlib
+ - graphviz
