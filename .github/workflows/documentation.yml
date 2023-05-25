@@ -28,16 +28,12 @@ jobs:
           make
 
       - name: Move LaTeX PDF to root
-        run: mv docs/latex/refman.pdf documentation.pdf
-
-      - name: Publish HTML documentation
-        uses: actions/upload-artifact@v2
-        with:
-          name: doxygen-html
-          path: docs/html
+        run: mv docs/latex/refman.pdf docs/latex/documentation.pdf
 
       - name: Publish PDF documentation
-        uses: actions/upload-artifact@v2
-        with:
-          name: doxygen-pdf
-          path: documentation.pdf
+        run: |
+          git config --global user.email "ra922@ic.ac.uk"
+          git config --global user.name "acse-ra922"
+          git add docs/latex/documentation.pdf
+          git commit -m "Update documentation"
+          git push
