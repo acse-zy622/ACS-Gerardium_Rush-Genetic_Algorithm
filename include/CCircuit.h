@@ -3,6 +3,13 @@
 
 #pragma once
 
+/** header file for the circuit 
+ * 
+ * This header file defines the function that will be used to generate and validate the circuit
+*/
+
+
+
 #include "CUnit.h"
 #include <vector>
 #include <iostream>
