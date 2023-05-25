@@ -53,10 +53,10 @@ int main(int argc, char* argv[])
 
     std::cout << "Please enter the generation size" << std::endl;
     std::cout << "To use the default value(500), please enter 0" << std::endl;
-    std::cin >> parameters.generation_size;
-    if (parameters.generation_size == 0)
+    std::cin >> parameters.generation_step;
+    if (parameters.generation_step == 0)
     {
-        parameters.generation_size = 500;
+        parameters.generation_step = 500;
     }
 
     parameters.mutation_max_step = 5;

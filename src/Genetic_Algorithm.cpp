@@ -11,6 +11,7 @@
 #include <numeric>
 #include <string>
 #include <fstream>
+#include <memory>
 #include "omp.h"
 
 /**

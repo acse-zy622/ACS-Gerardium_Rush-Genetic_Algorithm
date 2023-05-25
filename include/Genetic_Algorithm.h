@@ -10,6 +10,7 @@
 #include <chrono>
 #include <numeric>
 #include <vector>
+#include <memory>
 #include "CCircuit.h"
 /**
  * @struct Algorithm_Parameters
