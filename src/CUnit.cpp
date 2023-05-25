@@ -1,9 +1,31 @@
 #include "CUnit.h"
 
+/**
+*@brief Checks if two double values are close within a specified tolerance.
+*This function compares two double values and determines if they are close
+*to each other within the specified tolerance. The comparison is performed
+*using the absolute difference between the two values.
+*@param a The first double value to compare.
+*@param b The second double value to compare.
+*@param tolerance The tolerance value within which the two values are considered close.
+*@return true if the absolute difference between the two values is less than or equal to the tolerance, false otherwise.
+*/
 bool isClose(double a, double b, double tolerance) {
     return std::abs(a - b) <= tolerance;
 }
 
+
+/**
+
+*@brief Solves the CUnit by performing necessary calculations.
+*This function solves the CUnit by performing the following steps:
+*Calculates the residence time.
+*Performs reaction composition calculations.
+*Calculates the outlet values.
+*Calculates the concentration.
+*@note This function assumes that the CUnit and its related data have been properly initialized.
+*@see CUnit, ResidenceTime(), ReactionComp(), OutletCalc(), ConcentrationCalc()
+*/
 void CUnit::SolveCUnit() {
     ResidenceTime();
     ReactionComp();
@@ -11,6 +33,14 @@ void CUnit::SolveCUnit() {
     ConcentrationCalc();
 }
 
+/**
+*@brief Prints the CUnit information and performs a mass balance check.
+*This function prints various components and flow rates at the inlet, concentrate, and tailing of the CUnit. It also displays the spatial time and reaction rates. 
+*Finally, it calls the CheckMassBalance() function to perform a mass balance check.
+*@note This function assumes that the CUnit and its related data have been properly initialized.
+*@see CUnit, CheckMassBalance()
+
+*/
 void CUnit::PrintCUnit() {
     // Spatial time and reaction rates
     std::cout << "\nSpatial time: " << tau << std::endl;
@@ -37,6 +67,14 @@ void CUnit::PrintCUnit() {
     CheckMassBalance();
 }
 
+/**
+*@brief Calculates the concentrations of components in the CUnit.
+*This function calculates the concentrations of components in the CUnit by dividing the corresponding flow rates by the total flow rate.
+
+*@note This function assumes that the CUnit and its related data have been properly initialized.
+
+*@see CUnit
+*/
 void CUnit::ConcentrationCalc() {
     // Concentrations at the inlet
     Cgi = Fgi / Fti;
@@ -49,6 +87,15 @@ void CUnit::ConcentrationCalc() {
     Cwt = Fwt / Ftt;
 }
 
+/**
+*@brief Calculates the residence time of the CUnit.
+
+*This function calculates the residence time of the CUnit based on the given parameters: gamma, V, pg, pw, Fgi, and Fwi.
+
+*@note This function assumes that the CUnit and its related data have been properly initialized.
+
+*@see CUnit
+*/
 void CUnit::ResidenceTime() {
     double gamma = 0.1; // Ratio of solid content to feed content
     double V = 10; // Volume of the tank [m^3]
@@ -64,6 +111,12 @@ void CUnit::ResidenceTime() {
 
 }
 
+/**
+ *@brief Calculates the reaction components.
+ *
+ * This method calculates the reaction components based on the reaction rate constants
+ * for Gerardium and waste.
+ */
 void CUnit::ReactionComp() {
     double kg = 0.005; // Reaction rate constant for Gerardium [1/s]
     double kw = 0.0005; // Reaction rate constant for waste [1/s]
@@ -72,6 +125,12 @@ void CUnit::ReactionComp() {
     Rw = kw * tau / (1 + kw * tau);
 }
 
+/**
+ *@brief Calculates the outlet components.
+ *
+ * This method calculates the outlet components based on the reaction rates
+ * and the input components.
+ */
 void CUnit::OutletCalc() {
     if (Rg == 0 && Rw == 0) {
         Fgc = 1.e-10;
@@ -92,11 +151,32 @@ void CUnit::OutletCalc() {
     Ftt = Fgt + Fwt;
 }
 
+/**
+ * @brief Returns the outlet components.
+ *
+ * This method returns a vector containing the outlet components: Gerardium component (Fgc),
+ * waste component (Fwc), total Gerardium component (Fgt), and total waste component (Fwt).
+ *
+ * @return Vector containing the outlet components.
+ */
 std::vector<double> CUnit::ReturnOutlets() {
     std::vector<double> Outlets = { Fgc, Fwc, Fgt, Fwt };
     return Outlets;
 }
 
+/**
+ *@brief Checks the mass balance of the unit.
+ *
+ * This method checks the mass balance of the unit by comparing the inlet and outlet
+ * components and printing the results. It performs the following checks:
+ * - Global Total mass balance
+ * - Global Gerardium mass balance
+ * - Global Waste mass balance
+ * - Mass balance at the inlet
+ * - Mass balance at the concentrate
+ * - Mass balance at the tailing
+ * - Global general mass balance
+ */
 void CUnit::CheckMassBalance() {
     double tol = 1e-10;
     // Global Total mass balance
