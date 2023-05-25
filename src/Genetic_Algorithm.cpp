@@ -267,7 +267,7 @@ void AddChildren(std::vector<Individual>& children, Individual& childX, Individu
  * @param parameters The parameters of the genetic algorithm.
  * @return The fitness value of the best individual found.
  */
-double optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters parameters) {
+double optimize(int vector_size, int* best_vector, double(&func) (int, int*), Algorithm_Parameters parameters) {
     if (vector_size <= 0 || vector_size % 2 == 0 ) {
         std::cout << "Invalid vector size!! " << std::endl;
         return -1;
@@ -332,27 +332,28 @@ double optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters
     std::cout << "Best solution found: " << std::endl;
     for (int i = 0; i < parents[0].vector.size(); ++i) {
         std::cout << parents[0].vector[i] << " ";
+        best_vector[i] = parents[0].vector[i];
     }
     std::cout << std::endl;
-    std::string file_name = "./Circuit_Vector.txt";
-    std::fstream file;
-    file.open(file_name, std::ios_base::out);
-    if (file.is_open())
-    {
-        for (int n = 0; n < parents[0].vector.size(); n++)
-        {
-            file << parents[0].vector[n];
-            if (n < parents[0].vector.size() - 1)
-            {
-                file << " ";
-            }
-        }
-    }
-    else
-    {
-        std::cout << "Error when opening the file." << std::endl;
-    }
-    file.close();
+    // std::string file_name = "./Circuit_Vector.txt";
+    // std::fstream file;
+    // file.open(file_name, std::ios_base::out);
+    // if (file.is_open())
+    // {
+    //     for (int n = 0; n < parents[0].vector.size(); n++)
+    //     {
+    //         file << parents[0].vector[n];
+    //         if (n < parents[0].vector.size() - 1)
+    //         {
+    //             file << " ";
+    //         }
+    //     }
+    // }
+    // else
+    // {
+    //     std::cout << "Error when opening the file." << std::endl;
+    // }
+    // file.close();
 
 
 

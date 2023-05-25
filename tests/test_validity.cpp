@@ -11,7 +11,7 @@ int main(int argc, char * argv[])
 {
     std::cout << "Starting first test on validity" << std::endl;
     //creating an object of the Circuit class
-    Circuit c1(4);
+    CCircuit c1(4);
     //initialising the circuit vector
     int circ1[10] = {0,1,3,2,0,4,3,0,5};
     bool val1 = c1.Check_Validity(circ1);
@@ -25,7 +25,7 @@ int main(int argc, char * argv[])
     }
     std::cout << "Starting second test on validity" << std::endl;
     //creating an object of the Circuit class
-    Circuit c2(3);
+    CCircuit c2(3);
     //initialising the circuit vector
     int circ2[7] = { 0,1,2,3,0,0,4 };
     bool val2 = c2.Check_Validity(circ2);

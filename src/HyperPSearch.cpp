@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <fstream>
 #include <random>
 #include <vector>
 #include "Genetic_Algorithm.h"
@@ -32,7 +33,7 @@ Algorithm_Parameters generateRandomParameters(int vector_size) {
     return params;
 }
 
-void randomSearch(int iterCount, int vector_size) {
+void randomSearch(int iterCount, int* best_vector, int vector_size) {
     double bestScore = -1.0;
     int bestPopulation = 0;
     double bestMutationR = 0.0;
@@ -41,15 +42,22 @@ void randomSearch(int iterCount, int vector_size) {
     std::vector<double> bestCTR;
     for (int i = 0; i < iterCount; ++i) {
         Algorithm_Parameters customizePara = generateRandomParameters(vector_size);
-        double temresult = 0.0;
+        double* temresult = new double[3];
         double result = 0.0;
+        int** tmp_best_vector = new int*[3];
         for (int o = 0; o < 3; ++o) {
-            temresult += optimize(vector_size, Evaluate_Circuit, customizePara);
+            tmp_best_vector[o] = new int[vector_size];
+            temresult[o] = optimize(vector_size, tmp_best_vector[o], Evaluate_Circuit, customizePara);
         }
-        result = temresult / 3;
+        int max_index;
+        max_index = std::max_element(temresult, temresult + 3) - temresult;
+        result = temresult[max_index];
         std::cout << "Tem score for iter " << i <<":" <<result<< "\n";
         if (result > bestScore) {
             bestScore = result;
+            for (int j = 0; j < vector_size; ++j) {
+                best_vector[j] = tmp_best_vector[max_index][j];
+            }
             bestPopulation = customizePara.population_size;
             bestMutationR = customizePara.mutation_rate;
             bestCrossoverR = customizePara.crossover_rate;
@@ -57,14 +65,37 @@ void randomSearch(int iterCount, int vector_size) {
             bestCTR = customizePara.crossover_type_rate;
         }
     } 
+    std::cout << "                            " << std::endl;
+    std::string file_name = "../../Monetary_Value.txt";
+    std::fstream file;
+    file.open(file_name, std::ios_base::out);
+    if (file.is_open())
+    {
+        file << bestScore;
+    }
+    else
+    {
+        std::cout << "Error when opening the file." << std::endl;
+    }
+    file.close();
+
+
+    file << "Best score: " << bestScore << "\n";
+    file.close();
+
     std::cout << "                            " << std::endl;  
     std::cout << "                            " << std::endl; 
-    std::cout << " THE RESULT OF SEARCHING IS: \n";
-    std::cout << " Best score: " << bestScore << "\n";
-    std::cout << " Best parameters are: \n";
-    std::cout << " Population size: " << bestPopulation << "\n";    
-    std::cout << " Mutation rate: " << bestMutationR << "\n";
-    std::cout << " Crossover rate: " << bestCrossoverR << "\n";    
-    std::cout << " Mutation_type_rates are " <<"Substitutions:  " << bestMTR[0] << " Rearrangements: "<< bestMTR[1] << "\n";
-    std::cout << " Crossover_type_rates are " <<"One-point: "<< bestCTR[0] <<" Multiple-points: "<< bestCTR[1] <<" Uniform: "<< bestCTR[2] << "\n";
+    std::cout << "THE RESULT OF SEARCHING IS: \n";
+    std::cout << "Best score: " << bestScore << "\n";
+    std::cout << "Best vector: ";
+    for (int i = 0; i < vector_size; ++i) {
+        std::cout << best_vector[i] << " ";
+    }
+    std::cout << "\n";
+    std::cout << "Best parameters are: \n";
+    std::cout << "Population size: " << bestPopulation << "\n";    
+    std::cout << "Mutation rate: " << bestMutationR << "\n";
+    std::cout << "Crossover rate: " << bestCrossoverR << "\n";    
+    std::cout << "Mutation_type_rates are " <<"Substitutions:  " << bestMTR[0] << " Rearrangements: "<< bestMTR[1] << "\n";
+    std::cout << "Crossover_type_rates are " <<"One-point: "<< bestCTR[0] <<" Multiple-points: "<< bestCTR[1] <<" Uniform: "<< bestCTR[2] << "\n";
 }

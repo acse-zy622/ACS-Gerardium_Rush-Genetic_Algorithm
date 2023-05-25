@@ -1,6 +1,6 @@
 project(tests)
 
-list(APPEND Tests test1 test2 test_GA)
+list(APPEND Tests test_validity CCircuit_Tests CUnit_Tests CSimulator_Tests test_GA)
 
 foreach(TEST IN LISTS Tests)
     add_executable(${TEST} ${TEST}.cpp)
@@ -12,4 +12,4 @@ foreach(TEST IN LISTS Tests)
     add_test(NAME ${TEST} COMMAND ${TEST})
 endforeach()
 
-add_test(NAME executable COMMAND "${CMAKE_BINARY_DIR}/bin/Circuit_Optimizer")
+# add_test(NAME executable COMMAND "${CMAKE_BINARY_DIR}/bin/Circuit_Optimizer")

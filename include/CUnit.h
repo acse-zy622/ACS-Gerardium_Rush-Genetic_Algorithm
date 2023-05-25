@@ -57,7 +57,7 @@ public:
     void ResidenceTime();
     void ReactionComp();
     void OutletCalc();
-    void CheckMassBalance();
+    int CheckMassBalance();
 
     void SolveCUnit();
     void PrintCUnit();

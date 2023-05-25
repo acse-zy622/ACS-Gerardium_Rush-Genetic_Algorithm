@@ -150,7 +150,7 @@ void AddChildren(std::vector<Individual>& children, Individual& childX, Individu
  * @param parameters The parameters of the genetic algorithm.
  * @return The fitness value of the best individual found.
  */
-double optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters parameters);
+double optimize(int vector_size, int* best_vector, double(&func) (int, int*), Algorithm_Parameters parameters);
 
 
 #endif 

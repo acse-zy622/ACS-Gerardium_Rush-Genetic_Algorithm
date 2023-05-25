@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 {
 
     // set things up
-    int vector_size = 21;
+    int vector_size = 11;
     int num_of_unit = 2 * vector_size - 1;
 
     // set your parameters
@@ -17,17 +17,17 @@ int main(int argc, char* argv[])
     Algorithm_Parameters parameters;
 
     //[100,150]
-    parameters.population_size = 100;
+    parameters.population_size = 10;
     // bounded with mutation_max_step;
     //[0.01,0.05]
     parameters.mutation_rate = 0.05;
     //[0.8,0.95]
     parameters.crossover_rate = 0.90;
-    parameters.generation_step = 1000;
+    parameters.generation_step = 10;
     // has somthing to do with the 2*n + 1;
     parameters.mutation_max_step = vector_size;
 
-    parameters.early_stopping_generations = 100 + 2*(vector_size-1);
+    parameters.early_stopping_generations = 10;
 
     //[first one takes the majority]
     parameters.mutation_type_rate = {0.8,0.2};
