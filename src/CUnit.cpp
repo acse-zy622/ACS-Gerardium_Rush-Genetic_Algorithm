@@ -177,7 +177,7 @@ std::vector<double> CUnit::ReturnOutlets() {
  * - Mass balance at the tailing
  * - Global general mass balance
  */
-void CUnit::CheckMassBalance() {
+int CUnit::CheckMassBalance() {
     double tol = 1e-10;
     // Global Total mass balance
     if (isClose(Fti, Ftc + Ftt, tol)) {
@@ -185,6 +185,7 @@ void CUnit::CheckMassBalance() {
     }
     else {
         std::cout << "\nGlobal Total mass balance is incorrect" << std::endl;
+        return 1;
     }
     // Global Gerardium mass balance
     if (isClose(Fgi, Fgc + Fgt, tol)) {
@@ -192,6 +193,7 @@ void CUnit::CheckMassBalance() {
     }
     else {
         std::cout << "Global Gerardium mass balance is incorrect" << std::endl;
+        return 1;
     }
     // Global Waste mass balance
     if (isClose(Fwi, Fwc + Fwt, tol)) {
@@ -199,6 +201,7 @@ void CUnit::CheckMassBalance() {
     }
     else {
         std::cout << "Global Waste mass balance is incorrect" << std::endl;
+        return 1;
     }
     // Mass balance at the inlet
     if (isClose(Fti, Fgi + Fwi, tol)) {
@@ -206,6 +209,7 @@ void CUnit::CheckMassBalance() {
     }
     else {
         std::cout << "Mass balance at the inlet is incorrect" << std::endl;
+        return 1;
     }
     // Mass balance at the concentrate
     if (isClose(Ftc, Fgc + Fwc, tol)) {
@@ -213,6 +217,7 @@ void CUnit::CheckMassBalance() {
     }
     else {
         std::cout << "Mass balance at the concentrate is incorrect" << std::endl;
+        return 1;
     }
     // Mass balance at the tailing
     if (isClose(Ftt, Fgt + Fwt, tol)) {
@@ -220,6 +225,7 @@ void CUnit::CheckMassBalance() {
     }
     else {
         std::cout << "Mass balance at the tailing is incorrect" << std::endl;
+        return 1;
     }
     // Global general mass balance
     if (isClose(Fgi + Fwi, Fgc + Fgt + Fwc + Fwt, tol)) {
@@ -227,5 +233,7 @@ void CUnit::CheckMassBalance() {
     }
     else {
         std::cout << "Global general mass balance is incorrect" << std::endl;
+        return 1;
     }
+    return 0;
 }
