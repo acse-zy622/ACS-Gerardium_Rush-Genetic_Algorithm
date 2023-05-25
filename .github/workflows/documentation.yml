@@ -1,0 +1,43 @@
+name: Doxygen
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Doxygen and LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen
+          sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
+
+      - name: Generate Doxygen HTML
+        run: doxygen Doxyfile
+
+      - name: Generate Doxygen LaTeX
+        run: |
+          cd docs/latex
+          make
+
+      - name: Move LaTeX PDF to root
+        run: mv docs/latex/refman.pdf documentation.pdf
+
+      - name: Publish HTML documentation
+        uses: actions/upload-artifact@v2
+        with:
+          name: doxygen-html
+          path: docs/html
+
+      - name: Publish PDF documentation
+        uses: actions/upload-artifact@v2
+        with:
+          name: doxygen-pdf
+          path: documentation.pdf
