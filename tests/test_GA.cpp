@@ -38,10 +38,10 @@ int main(int argc, char* argv[])
 
     parameters_.max_iterations = 1000;
     parameters_.tolerance = 0.01;
-
+    int* vector = new int[vector_size];
     // unit_test and 23250041006 is the unit case
     auto total_start_ = std::chrono::high_resolution_clock::now();
-    double result_ = optimize(vector_size,Evaluate_circuit,parameters);
+    double result_ = optimize(vector_size,vector,Evaluate_circuit,parameters);
     auto total_end_ = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> total_elapsed_ = total_end_ - total_start_;
     std::cout << result_ << std::endl;
