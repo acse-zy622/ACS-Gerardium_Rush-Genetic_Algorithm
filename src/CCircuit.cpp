@@ -187,8 +187,6 @@ void CCircuit::FillIDs() {
     units.resize(num_units + 2);
     recycle_mineral.resize(num_units + 2);
     recycle_waste.resize(num_units + 2);
-    std::fill(recycle_mineral.begin(), recycle_mineral.end(), 0.0);
-    std::fill(recycle_waste.begin(), recycle_waste.end(), 0.0);
     int SystemFeedID = CCircuit_vector[0];
     int SystemConcentrateID = num_units;
     int SystemTailingID = num_units + 1;
