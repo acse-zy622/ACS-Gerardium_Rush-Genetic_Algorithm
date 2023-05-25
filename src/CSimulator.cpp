@@ -21,11 +21,7 @@ struct Circuit_Parameters default_circuit_parameters = {0.01, 1000};
  * @return The monetary value of the final concentrate.
  */
 double Evaluate_Circuit(int vector_size, int* circuit_vector, struct Circuit_Parameters parameters) {
-    vector<int> CCircuit_vector;  // Define the circuit vector in "vector" form
-    for(int n = 0; n < vector_size; n++)  // Assign values to circuit vector
-    {
-        CCircuit_vector.emplace_back(circuit_vector[n]);
-    }
+    vector<int> CCircuit_vector(circuit_vector, circuit_vector+vector_size);  // Define the circuit vector in "vector" form
 
     vector<double> flowrates_g;  // Define flow rate of gerardium of each unit
     vector<double> new_flowrates_g;  // Define new flow rate of gerardium of each unit
