@@ -335,27 +335,6 @@ double optimize(int vector_size, int* best_vector, double(&func) (int, int*), Al
         best_vector[i] = parents[0].vector[i];
     }
     std::cout << std::endl;
-    // std::string file_name = "./Circuit_Vector.txt";
-    // std::fstream file;
-    // file.open(file_name, std::ios_base::out);
-    // if (file.is_open())
-    // {
-    //     for (int n = 0; n < parents[0].vector.size(); n++)
-    //     {
-    //         file << parents[0].vector[n];
-    //         if (n < parents[0].vector.size() - 1)
-    //         {
-    //             file << " ";
-    //         }
-    //     }
-    // }
-    // else
-    // {
-    //     std::cout << "Error when opening the file." << std::endl;
-    // }
-    // file.close();
-
-
 
     std::cout << "Best fitness value is: " << parents[0].fitness_val << std::endl;
     return parents[0].fitness_val;

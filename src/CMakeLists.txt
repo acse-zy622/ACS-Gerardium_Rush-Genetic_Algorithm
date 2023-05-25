@@ -1,3 +1,4 @@
+set(CMAKE_BUILD_TYPE Release)
 find_package(OpenMP)
 
 ## add the genetic algorithm library

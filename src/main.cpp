@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include "Genetic_Algorithm.h"
 #include "CCircuit.h"
 #include "CUnit.h"
@@ -102,7 +103,10 @@ int main(int argc, char* argv[])
             // Generate final output
             std::cout << result << std::endl;
             std::cout << "                            " << std::endl;
-            std::string file_name = "../../Monetary_Value.txt";
+            std::filesystem::path path = "..";
+            path /= "..";
+            path /= "Monetary_Value.txt";
+            std::string file_name = path.string();
             std::fstream file;
             file.open(file_name, std::ios_base::out);
             if (file.is_open())
@@ -115,7 +119,10 @@ int main(int argc, char* argv[])
             }
             file.close();
         }
-        std::string file_name = "../../Circuit_Vector.txt";
+        std::filesystem::path path = "..";
+        path /= "..";
+        path /= "Circuit_Vector.txt";
+        std::string file_name = path.string();
         std::fstream file;
         file.open(file_name, std::ios_base::out);
         if (file.is_open())

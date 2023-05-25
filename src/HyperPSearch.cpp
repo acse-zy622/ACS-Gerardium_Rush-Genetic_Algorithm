@@ -2,6 +2,7 @@
 #include <fstream>
 #include <random>
 #include <vector>
+#include <filesystem>
 #include "Genetic_Algorithm.h"
 #include "CUnit.h"
 #include "CCircuit.h"
@@ -66,7 +67,11 @@ void randomSearch(int iterCount, int* best_vector, int vector_size) {
         }
     } 
     std::cout << "                            " << std::endl;
-    std::string file_name = "../../Monetary_Value.txt";
+    std::filesystem::path path = "..";
+    path /= "..";
+    path /= "Monetary_Value.txt";
+    std::string file_name = path.string();
+
     std::fstream file;
     file.open(file_name, std::ios_base::out);
     if (file.is_open())
