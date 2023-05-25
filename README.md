@@ -77,7 +77,7 @@ Otherwise, you'll be directed to a webpage that displays plots of detected crate
 
 The tool `docs/html/` directory contains detailed documentation for this package, including examples and details of all functions and inputs.
 
-This can be viewed in your browser through the `index.html` file, or directly by the `flourite.pdf` file.
+This can be viewed in your browser through the `index.html` file, or directly by the `documentation.pdf` file.
 
 ### **Testing**
 

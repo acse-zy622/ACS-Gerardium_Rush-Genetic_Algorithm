@@ -1,2 +1,9 @@
 .cache
+.sty
+.aux
+.out
+.idx
+.ilg
+.ing
+.toc
 build
