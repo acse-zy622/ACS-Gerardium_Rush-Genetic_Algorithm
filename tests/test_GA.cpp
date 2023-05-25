@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     parameters.mutation_rate = 0.05;
     //[0.8,0.95]
     parameters.crossover_rate = 0.90;
-    parameters.generation_step = 1000;
+    parameters.generation_step = 10;
     // has somthing to do with the 2*n + 1;
     parameters.mutation_max_step = vector_size;
 
