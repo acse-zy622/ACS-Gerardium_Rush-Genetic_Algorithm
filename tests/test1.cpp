@@ -8,7 +8,7 @@ int main(int argc, char * argv[]){
         int valid[3] = {0, 1, 2};
         int invalid[3] = {0, 2, 2};
 
-    CCircuit circuit(3);
+    CCircuit circuit(1);
 
 	std::cout << "Check_Validity({0,1,2}):\n";
         if (circuit.Check_Validity(valid))
