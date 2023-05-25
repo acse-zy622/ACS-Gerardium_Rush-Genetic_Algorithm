@@ -1,6 +1,6 @@
 project(tests)
 
-list(APPEND Tests test1 test2 test_GA)
+list(APPEND Tests test_validity CCircuit_Tests CUnit_Tests CSimulator_Tests test_GA)
 
 foreach(TEST IN LISTS Tests)
     add_executable(${TEST} ${TEST}.cpp)
