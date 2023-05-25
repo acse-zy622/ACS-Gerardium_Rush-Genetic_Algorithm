@@ -288,7 +288,6 @@ void CCircuit::mark_units(int unit_num) {
     }
     else {
         validation[0] = true;
-        return;
         // Indicates that you have seen an exit
     }
     //If tails_num does not point at a circuit outlet recursively call the function
@@ -298,7 +297,6 @@ void CCircuit::mark_units(int unit_num) {
     }
     else {
         validation[1] = true;
-        return;
         // Indicates that you have seen an exit
     }
     return;
