@@ -41,6 +41,7 @@ Before installing the software, it is worth ensuring your environment meets the 
 - pandas
 - matplotlib
 - yaml
+- graphviz
 
 If using conda, a new environment can be set up with the below command, after navigating to the tool directory:
 
