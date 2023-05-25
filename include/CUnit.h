@@ -7,6 +7,10 @@
 #include <cmath>
 
 #pragma once
+/** header file for the units of the ircuit
+ * 
+ * This header file defines the function that will be used to initialize the units in the circuit
+*/
 
 
 class CUnit {
