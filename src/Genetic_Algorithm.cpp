@@ -289,12 +289,12 @@ double optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters
     std::vector<Individual> parents = InitializePopulation(vector_size, gen, uniform_int, circuit, parameters);
 
     while (generation < parameters.generation_step) {
-        std::cout << "generation: "<< generation << std::endl;
-        auto start_time = std::chrono::high_resolution_clock::now();
+        if (generation % 20 == 0){
+            std::cout << "generation: "<< generation << std::endl;
+        }
+
         CalculateFitness(parents, func);
-        auto end_time = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> elapsed = end_time - start_time;
-        performance_time.push_back(elapsed.count());
+
 
         SortParentsByFitness(parents);
 
@@ -328,9 +328,6 @@ double optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters
         generation++;
     }
 
-    double total_time = std::accumulate(performance_time.begin(), performance_time.end(), 0.0);
-    std::cout << "Overall performance time: " << total_time << " seconds" << std::endl;
-
     // Output the input vector with the best solution found
     std::cout << "Best solution found: " << std::endl;
     for (int i = 0; i < parents[0].vector.size(); ++i) {
@@ -338,7 +335,6 @@ double optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters
     }
     std::cout << std::endl;
     std::string file_name = "./Circuit_Vector.txt";
-    ;
     std::fstream file;
     file.open(file_name, std::ios_base::out);
     if (file.is_open())
@@ -358,6 +354,8 @@ double optimize(int vector_size, double(&func) (int, int*), Algorithm_Parameters
     }
     file.close();
 
-    std::cout << "Best fitness value is: " << std::endl;
+
+
+    std::cout << "Best fitness value is: " << parents[0].fitness_val << std::endl;
     return parents[0].fitness_val;
 }
