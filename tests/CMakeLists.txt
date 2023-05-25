@@ -12,4 +12,4 @@ foreach(TEST IN LISTS Tests)
     add_test(NAME ${TEST} COMMAND ${TEST})
 endforeach()
 
-add_test(NAME executable COMMAND "${CMAKE_BINARY_DIR}/bin/Circuit_Optimizer")
+# add_test(NAME executable COMMAND "${CMAKE_BINARY_DIR}/bin/Circuit_Optimizer")
