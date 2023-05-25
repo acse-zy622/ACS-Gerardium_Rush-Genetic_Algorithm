@@ -19,9 +19,24 @@ CCircuit::CCircuit(int num_units) {
     }
 }
 
-// Constructor with number of units and vector
+/**
+ * @brief Constructor of the CCircuit class with specified number of units and a circuit vector.
+ *
+ * This constructor initializes a CCircuit object with the given number of units and circuit vector.
+ *
+ * @param num_units_ The number of units in the circuit.
+ * @param CCircuit_vector_ The circuit vector containing information about the circuit.
+ */
 CCircuit::CCircuit(int num_units_, const std::vector<int>& CCircuit_vector_) : num_units(num_units_), system_mineral_input(0.0), system_waste_input(0.0),
                                                                                CCircuit_vector(CCircuit_vector_) {}
+
+/**
+ * @brief Calculates and returns the profit based on the current unit's data.
+ *
+ * This function calculates the profit based on the current unit's data and returns the result.
+ *
+ * @return The calculated profit based on the formula: ProfitGerardium * Fgi - PenalizationWaste * Fwi.
+ */
 
 double CCircuit::ReturnProfit() {
     double ProfitGerardium = 100;
@@ -29,11 +44,28 @@ double CCircuit::ReturnProfit() {
     return ProfitGerardium * units[num_units].Fgi - PenalizationWaste * units[num_units].Fwi;
 }
 
+
+
+/**
+ * @brief Sets the system flow rates for mineral and waste inputs.
+ *
+ * This function sets the system flow rates for mineral and waste inputs based on the provided values.
+ *
+ * @param Sg_ The mineral input flow rate to be set for the system.
+ * @param Sw_ The waste input flow rate to be set for the system.
+ */
 void CCircuit::SystemFlowrates(double Sg_, double Sw_) {
     system_mineral_input = Sg_;
     system_waste_input = Sw_;
 }
 
+/**
+ * @brief Resets the flow rates of all units in the circuit to zero.
+ *
+ * This function sets the flow rates of all units in the circuit to zero. It iterates through each unit
+ * and resets various flow rate variables to zero, including Fti, Fgi, Fwi, Ftc, Fgc, Fwc, Ftt, Fgt, Fwt,
+ * Rg, Rw, and tau.
+ */
 void CCircuit::ResetFlowrates() {
     for (int i = 0; i < num_units + 2; i++) {
         units[i].Fti = 0.0;
@@ -51,6 +83,19 @@ void CCircuit::ResetFlowrates() {
     }
 }
 
+/**
+ * @brief Sets the inlet flow rates for each unit in the circuit.
+ *
+ * This function sets the inlet flow rates for each unit in the circuit based on the system feed ID and
+ * the provided recycle mineral and waste vectors. It iterates through each unit and checks if the unit's
+ * index matches the system feed ID. If a match is found, the mineral and waste input flow rates (Fgi and Fwi)
+ * as well as the total input flow rate (Fti) are set to the sum of the corresponding recycle flow rates,
+ * system mineral input, and system waste input. For units that don't match the system feed ID, the inlet
+ * flow rates are set to the corresponding recycle flow rates.
+ *
+ * @note The function assumes that the `CCircuit_vector`, `recycle_mineral`, and `recycle_waste` vectors
+ *       have been properly initialized before calling this function.
+ */
 void CCircuit::SetInlet() {
     int SystemFeedID = CCircuit_vector[0];
     for (int i = 0; i < num_units + 2; i++) {
@@ -67,7 +112,20 @@ void CCircuit::SetInlet() {
     }
 }
 
-
+/**
+ * @brief Returns the mineral and waste flow rates of each unit in the circuit.
+ *
+ * This function populates the provided vectors with the mineral and waste flow rates of each unit
+ * in the circuit. The function resizes the `Flowrates_g` and `Flowrates_w` vectors to accommodate the
+ * required number of flow rates. Then, it iterates through each unit and assigns the mineral and waste
+ * flow rates to the corresponding elements in the vectors.
+ *
+ * @param[out] Flowrates_g A vector that will be filled with the mineral flow rates of each unit.
+ * @param[out] Flowrates_w A vector that will be filled with the waste flow rates of each unit.
+ *
+ * @note The function assumes that the `Flowrates_g` and `Flowrates_w` vectors have been properly
+ *       initialized before calling this function.
+ */
 void CCircuit::ReturnFlowrates(std::vector<double>& Flowrates_g, std::vector<double>& Flowrates_w) {
     Flowrates_g.resize(num_units + 2);
     Flowrates_w.resize(num_units + 2);
@@ -77,6 +135,20 @@ void CCircuit::ReturnFlowrates(std::vector<double>& Flowrates_g, std::vector<dou
     }
 }
 
+/**
+
+*@brief Solves the CCircuit by iterating through its units.
+
+*This function solves the CCircuit by performing the following steps:
+*Resets the flow rates.
+*Sets the inlet.
+*Initializes the recycle_mineral and recycle_waste vectors with zeros.
+*Iterates through each unit in the circuit and solves it using SolveCUnit().
+*Updates the recycle_mineral and recycle_waste vectors based on the unit outputs.
+*@note This function assumes that the CCircuit and its units have been properly initialized.
+
+*@see CCircuit, SolveCUnit()
+*/
 void CCircuit::SolveCCircuit() {
     ResetFlowrates();
     SetInlet();
@@ -94,6 +166,22 @@ void CCircuit::SolveCCircuit() {
         recycle_waste[ID_Dest_Tail] += outlets[3];
     }
 }
+
+/**
+*
+*@brief Fills the IDs of the CCircuit units and initializes related data structures.
+*This function fills the IDs of the CCircuit units and performs the following steps:
+*Resizes the units, recycle_mineral, and recycle_waste vectors based on the number of units.
+*Initializes the recycle_mineral and recycle_waste vectors with zeros.
+*Assigns the appropriate IDs to each unit based on the CCircuit_vector.
+*Sets the IDs for the concentrate and tailing outlets of the system.
+
+*@note This function assumes that the CCircuit, units, and related data structures have been properly initialized.
+
+*@see CCircuit
+
+*@param CCircuit_vector A vector containing the IDs of the units in the CCircuit.
+*/
 
 void CCircuit::FillIDs() {
     units.resize(num_units + 2);
@@ -119,12 +207,10 @@ void CCircuit::FillIDs() {
     units[num_units + 1].ID_num_tail = -1;
 }
 
-// New functions from Rubab
-
 bool validation[2] = { false, false };
 /**
 * @brief Function to check the validity of a circuit 
-* @params int * circuit_vector
+* @param int * circuit_vector
 * Pointer to a circuit vector that contains information about the circuit
 * The function iterates through circuit to check its validity
 **/
@@ -181,10 +267,10 @@ bool CCircuit::Check_Validity(int* circuit_vector)
     return true;
 }
 /**
-@brief Function to mark all units accessible from the feed
-@params int unit_num 
-Integer value representing the initial unit
-This function is recursively called to mark all units that can be accessed from the feed
+*@brief Function to mark all units accessible from the feed
+*@param int unit_num 
+*Integer value representing the initial unit
+*This function is recursively called to mark all units that can be accessed from the feed
 **/
 
 void CCircuit::mark_units(int unit_num) {
