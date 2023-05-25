@@ -25,10 +25,21 @@ set_target_properties( circuitSimulator
     CXX_STANDARD 17
 )
 
+# build the hyper search library
+
+add_library(HyperPSearch HyperPSearch.cpp Genetic_Algorithm.cpp CCircuit.cpp CSimulator.cpp CUnit.cpp)
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(HyperPSearch PUBLIC OpenMP::OpenMP_CXX)
+endif()
+set_target_properties( HyperPSearch
+    PROPERTIES
+    CXX_STANDARD 17
+)
+
 # build the executable
 
 add_executable(Circuit_Optimizer main.cpp)
-target_link_libraries(Circuit_Optimizer PUBLIC geneticAlgorithm circuitSimulator)
+target_link_libraries(Circuit_Optimizer PUBLIC geneticAlgorithm HyperPSearch circuitSimulator)
 if(OpenMP_CXX_FOUND)
     target_link_libraries(Circuit_Optimizer PUBLIC OpenMP::OpenMP_CXX)
 endif()
