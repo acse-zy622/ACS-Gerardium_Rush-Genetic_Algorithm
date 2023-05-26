@@ -8,6 +8,7 @@
 #include "CCircuit.h"
 #include "CSimulator.h"
 #include "Genetic_Algorithm.h"
+#include "HyperPSearch.h"
 
 /**
  * @brief Generates algorithm parameters randomly.
