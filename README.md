@@ -72,7 +72,7 @@ The tool `docs/html/` directory contains detailed documentation for this package
 
 This can be viewed in your browser through the `index.html` file, or directly by the `documentation.pdf` file.
 
-On top of the documentation, an user guide is also provided in `docs/html/`, running the user through a few small examples.
+On top of the documentation, an user guide is also provided in `docs`, running the user through a few small examples.
 
 ### **Testing**
 
