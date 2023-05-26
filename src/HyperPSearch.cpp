@@ -9,6 +9,16 @@
 #include "CSimulator.h"
 #include "Genetic_Algorithm.h"
 
+/**
+ * @brief Generates algorithm parameters randomly.
+ *
+ * This function generates a set of genetic algorithm parameters (both random and non-random).
+ * Random parameters: population size, mutation rate, crossover rate, mutation type rate, crossover type rate.
+ * Non-random parameters: generation step, mutation max step, and early stopping generations.
+ *
+ * @param vector_size Genetic algorithm vector size for mutation max step and early stopping calculation.
+ * @return Algorithm_Parameters The randomly generated parameters.
+ */
 Algorithm_Parameters generateRandomParameters(int vector_size) {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -34,6 +44,18 @@ Algorithm_Parameters generateRandomParameters(int vector_size) {
     return params;
 }
 
+/**
+ * @brief Performs random search to find the best hyperparameters for genetic algorithm.
+ *
+ * This function performs a search by iteratively (and randomly) generating algorithm parameters,
+ * and evaluating the genetic algorithm output with those parameters. 
+ * At the end, it outputs the best score, best hyperparameters, 
+ * and best vector to the console and writes the best score to a file.
+ *
+ * @param iterCount The number of iterations to perform.
+ * @param best_vector A pointer to an array that will hold the best vector.
+ * @param vector_size Genetic algorithm vector size.
+ */
 void randomSearch(int iterCount, int* best_vector, int vector_size) {
     double bestScore = -1.0;
     int bestPopulation = 0;
