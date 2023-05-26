@@ -26,8 +26,9 @@ The program takes one input, i.e., the number of units to be present in a circui
 The software outputs the directory that contains the image of the optimised circuit. Moreover, the program also prints the evaluation score of each optimised circuit.
 
 #### **Additional Options**
-- Efficiently utilizes multi-threaded capabilities by emplying OpenMP function
-- Provides output for a user-generated input using a basic command line interface
+- Efficiently utilizes multi-threaded capabilities by emplying OpenMP 
+- Provides an interface for user-generated settings using a basic command line interface
+- Includes a Hyperparameter search mode, allowing the user to look for the best parameters
 
 ### **Installation Guide**
 
@@ -61,17 +62,9 @@ flood_tool can be installed using:
 pip install .
 ```
 
-### **Executing the Program**
+### **Compilation Guide**
 
-To access the GUI that we have developed please run the code below:
-```bash
-g++ src/main.cpp
-./a.out
-```
-
-Once the code above is run, you will be directed to a 
-If any of these attributes are missing, you'll be directed to a webpage that displays information about the project.
-Otherwise, you'll be directed to a webpage that displays plots of detected craters in the image.
+An OpenMP compatible compiler must be used. On Mac, for example, gcc is an option.
                                      
 ### **Documentation**
 
