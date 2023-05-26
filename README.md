@@ -64,7 +64,7 @@ pip install .
 
 ### **Compilation Guide**
 
-An OpenMP compatible compiler must be used. On Mac, for example, gcc is an option.
+An OpenMP compatible compiler must be used. On Mac, for example, gcc is an option
                                      
 ### **Documentation and user guide**
 
