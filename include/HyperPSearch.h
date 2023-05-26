@@ -1,5 +1,3 @@
-#ifndef HyperPSearch_H
-#define HyperPSearch_H
 /**
 *@brief header file to perform hyperparamter search
 **/
