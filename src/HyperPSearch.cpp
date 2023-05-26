@@ -38,7 +38,7 @@ Algorithm_Parameters generateRandomParameters(int vector_size) {
     double ctA = ctRander(gen);
     double ctB = ctA;
     params.crossover_type_rate = {ctA, ctB, 1.0 - ctA - ctB};
-    params.generation_step = 1000;
+    params.generation_step = 10000;
     params.mutation_max_step = vector_size;
     params.early_stopping_generations = 100 + 2 * (vector_size-1);
 
